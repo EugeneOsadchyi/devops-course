@@ -1,0 +1,3 @@
+[submodule "nodejs-demoapp"]
+	path = nodejs-demoapp
+	url = git@github.com:benc-uk/nodejs-demoapp.git
