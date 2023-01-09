@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 FROM node:19-alpine AS builder
 ENV NODE_ENV=production
 WORKDIR /app
@@ -10,7 +8,8 @@ FROM node:19-alpine
 ENV NODE_ENV "production"
 WORKDIR /app
 
-RUN apk update && apk add --no-cache nginx
+RUN apk update
+RUN apk add --no-cache nginx
 
 COPY ./docker/nginx/nginx.conf /etc/nginx/http.d/default.conf
 
