@@ -11,7 +11,6 @@ pipeline {
       steps {
         script {
           checkout scm
-          sh 'git submodule update --init'
         }
       }
     }
