@@ -8,6 +8,9 @@ FROM node:19-alpine
 ENV NODE_ENV "production"
 WORKDIR /app
 
+RUN apk add --no-cache \
+    ca-certificates
+
 RUN apk update
 RUN apk add --no-cache nginx
 
