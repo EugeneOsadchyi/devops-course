@@ -1,11 +1,6 @@
-# Configuring Kuberenetes cluster
+# Configuring Kubernetes cluster
 
-### Install Ingress-Nginx
-```sh
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml
-```
-
-### Architecture diagram
+## Architecture diagram
 
 ```mermaid
 ---
@@ -61,4 +56,16 @@ flowchart LR
     class ingress,service,pod1_1,pod1_2,pod1_3,pod1_4,pod2_1,pod2_2,pod2_3,pod2_4,pod3_1,pod3_2,pod3_3,pod3_4,pod4_1,pod4_2,pod4_3,pod4_4,service_1,service_2,service_3,service_4 k8s;
     class client plain;
     class cluster cluster;
+```
+
+## Install Ingress-Nginx
+
+### Docker Desktop
+```sh
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml
+```
+
+### AWS
+```sh
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/aws/deploy.yaml
 ```
