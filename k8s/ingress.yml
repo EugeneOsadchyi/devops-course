@@ -1,0 +1,49 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nodejs-demoapp-ingress
+  labels:
+    app.kubernetes.io/name: nodejs-demoapp
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: app1.localhost
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: nodejs-demoapp-1
+            port:
+              number: 80
+  - host: app2.localhost
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: nodejs-demoapp-2
+            port:
+              number: 80
+  - host: app3.localhost
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: nodejs-demoapp-3
+            port:
+              number: 80
+  - host: app4.localhost
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: nodejs-demoapp-4
+            port:
+              number: 80
