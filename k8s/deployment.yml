@@ -26,6 +26,12 @@ spec:
             cpu: "150m"
         ports:
         - containerPort: 80
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-demoapp-env
+              key: node_env
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -55,6 +61,12 @@ spec:
             cpu: "150m"
         ports:
         - containerPort: 80
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-demoapp-env
+              key: node_env
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -84,6 +96,12 @@ spec:
             cpu: "150m"
         ports:
         - containerPort: 80
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-demoapp-env
+              key: node_env
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -113,3 +131,9 @@ spec:
             cpu: "150m"
         ports:
         - containerPort: 80
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: nodejs-demoapp-env
+              key: node_env
