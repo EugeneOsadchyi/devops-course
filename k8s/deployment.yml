@@ -1,0 +1,111 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-demoapp-1
+  labels:
+    app.kubernetes.io/name: nodejs-demoapp
+    app.kubernetes.io/instance: nodejs-demoapp-1
+spec:
+  selector:
+    matchLabels:
+      app: nodejs-demoapp-1
+  replicas: 4
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        app: nodejs-demoapp-1
+    spec:
+      containers:
+      - name: nodejs-demoapp
+        image: eosadchiy/nodejs-app-nginx:latest
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "150m"
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-demoapp-2
+  labels:
+    app.kubernetes.io/name: nodejs-demoapp
+    app.kubernetes.io/instance: nodejs-demoapp-2
+spec:
+  selector:
+    matchLabels:
+      app: nodejs-demoapp-2
+  replicas: 4
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        app: nodejs-demoapp-2
+    spec:
+      containers:
+      - name: nodejs-demoapp
+        image: eosadchiy/nodejs-app-nginx:latest
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "150m"
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-demoapp-3
+  labels:
+    app.kubernetes.io/name: nodejs-demoapp
+    app.kubernetes.io/instance: nodejs-demoapp-3
+spec:
+  selector:
+    matchLabels:
+      app: nodejs-demoapp-3
+  replicas: 4
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        app: nodejs-demoapp-3
+    spec:
+      containers:
+      - name: nodejs-demoapp
+        image: eosadchiy/nodejs-app-nginx:latest
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "150m"
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-demoapp-4
+  labels:
+    app.kubernetes.io/name: nodejs-demoapp
+    app.kubernetes.io/instance: nodejs-demoapp-4
+spec:
+  selector:
+    matchLabels:
+      app: nodejs-demoapp-4
+  replicas: 4
+  revisionHistoryLimit: 0
+  template:
+    metadata:
+      labels:
+        app: nodejs-demoapp-4
+    spec:
+      containers:
+      - name: nodejs-demoapp
+        image: eosadchiy/nodejs-app-nginx:latest
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "150m"
+        ports:
+        - containerPort: 80
