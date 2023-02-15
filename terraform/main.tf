@@ -1,6 +1,6 @@
 provider "aws" {
   region  = "eu-west-2"
-  profile = "terraform"
+  profile = "default"
 
   default_tags {
     tags = {
@@ -21,5 +21,10 @@ module "database" {
   database_password = var.database_password
 
   vpc_id     = module.network.vpc_id
+  subnet_ids = module.network.private_subnet_ids
+}
+
+module "eks" {
+  source     = "./modules/eks"
   subnet_ids = module.network.private_subnet_ids
 }
