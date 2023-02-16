@@ -6,12 +6,15 @@
   - [Table of content](#table-of-content)
   - [Architecture diagram](#architecture-diagram)
   - [Getting started](#getting-started)
+    - [Required environment variables](#required-environment-variables)
     - [Connect kubectl to EKS cluster](#connect-kubectl-to-eks-cluster)
     - [Check connection](#check-connection)
+    - [Create Secret with database credentials](#create-secret-with-database-credentials)
+    - [Create ConfigMap with application configuration](#create-configmap-with-application-configuration)
     - [Install Ingress-Nginx](#install-ingress-nginx)
-      - [Docker Desktop](#docker-desktop)
       - [AWS](#aws)
-    - [Apply K8s declaration to the cluster](#apply-k8s-declaration-to-the-cluster)
+      - [Docker Desktop](#docker-desktop)
+    - [Apply K8s declarations to the cluster](#apply-k8s-declarations-to-the-cluster)
 
 ## Architecture diagram
 
@@ -75,6 +78,11 @@ flowchart LR
 ```
 
 ## Getting started
+Create ([Terraform infrastructure](../terraform/README.md)) first!
+
+### Required environment variables
+- `TF_VAR_database_username`
+- `TF_VAR_database_password`
 
 ### Connect kubectl to EKS cluster
 
@@ -87,19 +95,48 @@ aws eks update-kubeconfig --region eu-west-2 --name DevOps-Course
 kubectl get svc
 ```
 
-### Install Ingress-Nginx
+### Create Secret with database credentials
+Set `user` and `password` literals with with values you used to create a RDS database
 
-#### Docker Desktop
 ```sh
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml
+kubectl create secret generic db-credentials \
+    --from-literal=username=$TF_VAR_database_username \
+    --from-literal=password=$TF_VAR_database_password
 ```
 
+To check values:
+
+```sh
+kubectl get secret db-credentials -o jsonpath='{.data.username}' | base64 --decode
+kubectl get secret db-credentials -o jsonpath='{.data.password}' | base64 --decode
+```
+
+### Create ConfigMap with application configuration
+```sh
+kubectl create configmap db-credentials \
+    --from-literal=hostname=$DATABASE_HOSTNAME
+```
+
+To check values:
+
+```sh
+kubectl get configmap db-credentials -o jsonpath='{.data.hostname}'
+```
+
+### Install Ingress-Nginx
 #### AWS
 ```sh
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/aws/deploy.yaml
 ```
 
-### Apply K8s declaration to the cluster
+#### Docker Desktop
+If you would like to check kubernetes locally
+
+```sh
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml
+```
+
+### Apply K8s declarations to the cluster
 ```sh
 kubectl apply -f .
 ```

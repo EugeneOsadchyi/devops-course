@@ -1,12 +1,5 @@
 # AWS Infrastructure
 
-## Required variables
-
-```sh
-export TF_VAR_database_username=root
-export TF_VAR_database_password=password
-```
-
 ## Architecture diagram
 
 ```mermaid
@@ -41,3 +34,22 @@ flowchart LR
   style bastion stroke-width:2px,color:#fff,stroke-dasharray: 5 5
 
 ```
+
+## Required environment variables
+- `TF_VAR_database_username`
+- `TF_VAR_database_password`
+
+
+## Setup
+
+1. Set the desired database username and password to the environment variables
+   ```sh
+   export TF_VAR_database_username=root
+   export TF_VAR_database_password=password
+   ```
+
+2. Apply terraform
+  ```sh
+  terraform apply
+  ```
+

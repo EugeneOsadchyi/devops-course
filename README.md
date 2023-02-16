@@ -29,3 +29,9 @@
     У приватній мережі розгортаєте SQL інстанс, приєднуєте його до кластера k8s (для майбутнього використання).
 
 Все, що потрібно для створення майданчика в хмарі, робите за допомогою тераформ, файлики прикладаєте до ДЗ.
+
+## How to work with the repository
+1. For applying Terraform infrastructure to your AWS account - [Check steps](./terraform/README.md)
+2. For applying K8S infrastructure to AWS EKS or Docker for Desktop - [Check steps](./k8s/README.md)
+3. You need a `Jenkins` instance, which does Docker image build + upload and applying it to the kubernetes cluster.
+   Make sure, it has an access to Docker and Kubernetes CLI.

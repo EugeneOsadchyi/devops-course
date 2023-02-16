@@ -32,6 +32,21 @@ spec:
             configMapKeyRef:
               name: nodejs-demoapp-env
               key: node_env
+        - name: DATABASE_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-credentials
+              key: hostname
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: username
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: password
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -67,6 +82,21 @@ spec:
             configMapKeyRef:
               name: nodejs-demoapp-env
               key: node_env
+        - name: DATABASE_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-credentials
+              key: hostname
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: username
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: password
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -102,6 +132,21 @@ spec:
             configMapKeyRef:
               name: nodejs-demoapp-env
               key: node_env
+        - name: DATABASE_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-credentials
+              key: hostname
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: username
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: password
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -137,3 +182,18 @@ spec:
             configMapKeyRef:
               name: nodejs-demoapp-env
               key: node_env
+        - name: DATABASE_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: db-credentials
+              key: hostname
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: username
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key: password
