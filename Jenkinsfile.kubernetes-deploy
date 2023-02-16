@@ -2,8 +2,10 @@ pipeline {
   agent any
 
   environment {
-    dockerImageName = 'eosadchiy/nodejs-app-nginx'
-    dockerRegistryCredentials = 'docker-hub'
+    AWS_ACCESS_KEY_ID     = credentials('aws-secret-key-id')
+    AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+    AWS_REGION            = 'eu-west-2'
+    EKS_CLUSTER_NAME      = 'DevOps-Course'
   }
 
   stages {
@@ -15,22 +17,15 @@ pipeline {
       }
     }
 
-    stage('Build image') {
+    stage('Update kubeconfig') {
       steps {
-        script {
-          app = docker.build(dockerImageName)
-        }
+        sh 'aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME}'
       }
     }
 
-    stage('Push image to the Docker Hub') {
+    stage('Apply Kubernetes files') {
       steps {
-        script {
-          docker.withRegistry('', dockerRegistryCredentials) {
-            app.push("${env.BUILD_NUMBER}")
-            app.push('latest')
-          }
-        }
+        sh 'kubectl apply -f ./k8s'
       }
     }
   }
