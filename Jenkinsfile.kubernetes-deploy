@@ -1,17 +1,6 @@
 pipeline {
   agent any
 
-  environment {
-    AWS_ACCESS_KEY_ID     = credentials('aws-secret-key-id')
-    AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
-    AWS_REGION            = 'eu-west-2'
-    EKS_CLUSTER_NAME      = 'DevOps-Course'
-    DATABASE_HOSTNAME     = credentials('database-hostname')
-    DATABASE_PORT         = 3306
-    DATABASE_USERNAME     = credentials('database-username')
-    DATABASE_PASSWORD     = credentials('database-password')
-  }
-
   stages {
     stage('Clone repository') {
       steps {
@@ -21,24 +10,8 @@ pipeline {
       }
     }
 
-    stage('Update kubeconfig') {
-      steps {
-        sh 'aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME}'
-      }
-    }
-
     stage('Apply Kubernetes files') {
       steps {
-        sh '''
-        kubectl create secret generic db-credentials \
-            --from-literal=username=${DATABASE_USERNAME} \
-            --from-literal=password=${DATABASE_PASSWORD}
-        '''
-        sh '''
-          kubectl create configmap db-credentials \
-            --from-literal=hostname=${DATABASE_HOSTNAME} \
-            --from-literal=port=${DATABASE_PORT}
-        '''
         sh 'kubectl apply -f ./k8s'
       }
     }
