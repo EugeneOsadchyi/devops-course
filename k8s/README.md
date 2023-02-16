@@ -5,15 +5,19 @@
 - [Configuring Kubernetes cluster](#configuring-kubernetes-cluster)
   - [Table of content](#table-of-content)
   - [Architecture diagram](#architecture-diagram)
-  - [Getting started](#getting-started)
+  - [Getting started locally](#getting-started-locally)
     - [Required environment variables](#required-environment-variables)
-    - [Connect kubectl to EKS cluster](#connect-kubectl-to-eks-cluster)
-    - [Check connection](#check-connection)
+    - [Ingress-NGINX](#ingress-nginx)
     - [Create Secret with database credentials](#create-secret-with-database-credentials)
     - [Create ConfigMap with application configuration](#create-configmap-with-application-configuration)
-    - [Install Ingress-Nginx](#install-ingress-nginx)
-      - [AWS](#aws)
-      - [Docker Desktop](#docker-desktop)
+    - [Hosts file](#hosts-file)
+  - [Getting started in AWS](#getting-started-in-aws)
+    - [Required environment variables](#required-environment-variables-1)
+    - [Connect kubectl to EKS cluster](#connect-kubectl-to-eks-cluster)
+    - [Check connection](#check-connection)
+    - [Create Secret with database credentials](#create-secret-with-database-credentials-1)
+    - [Create ConfigMap with application configuration](#create-configmap-with-application-configuration-1)
+    - [Install Ingress-NGINX](#install-ingress-nginx)
     - [Apply K8s declarations to the cluster](#apply-k8s-declarations-to-the-cluster)
 
 ## Architecture diagram
@@ -77,10 +81,63 @@ flowchart LR
     class cluster cluster;
 ```
 
-## Getting started
+## Getting started locally
+
+### Required environment variables
+- `DATABASE_HOSTNAME`
+- `DATABASE_PORT`
+- `TF_VAR_database_username`
+- `TF_VAR_database_password`
+
+### Ingress-NGINX
+If you would like to check kubernetes locally
+
+```sh
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml
+```
+
+### Create Secret with database credentials
+Set `user` and `password` literals with with values you used to create a RDS database
+
+```sh
+kubectl create secret generic db-credentials \
+    --from-literal=username=$TF_VAR_database_username \
+    --from-literal=password=$TF_VAR_database_password
+```
+
+To check values:
+
+```sh
+kubectl get secret db-credentials -o jsonpath='{.data.username}' | base64 --decode
+kubectl get secret db-credentials -o jsonpath='{.data.password}' | base64 --decode
+```
+
+### Create ConfigMap with application configuration
+```sh
+kubectl create configmap db-credentials \
+    --from-literal=hostname=$DATABASE_HOSTNAME \
+    --from-literal=port=$DATABASE_PORT
+```
+
+To check values:
+
+```sh
+kubectl get configmap db-credentials -o jsonpath='{.data.hostname}'
+kubectl get configmap db-credentials -o jsonpath='{.data.port}'
+```
+
+### Hosts file
+
+```sh
+sudo bash -c 'echo "127.0.0.1 app1.eosadchyi app2.eosadchyi app3.eosadchyi app4.eosadchyi" >> /etc/hosts'
+```
+
+## Getting started in AWS
 Create ([Terraform infrastructure](../terraform/README.md)) first!
 
 ### Required environment variables
+- `DATABASE_HOSTNAME`
+- `DATABASE_PORT`
 - `TF_VAR_database_username`
 - `TF_VAR_database_password`
 
@@ -114,26 +171,20 @@ kubectl get secret db-credentials -o jsonpath='{.data.password}' | base64 --deco
 ### Create ConfigMap with application configuration
 ```sh
 kubectl create configmap db-credentials \
-    --from-literal=hostname=$DATABASE_HOSTNAME
+    --from-literal=hostname=$DATABASE_HOSTNAME \
+    --from-literal=port=$DATABASE_PORT
 ```
 
 To check values:
 
 ```sh
 kubectl get configmap db-credentials -o jsonpath='{.data.hostname}'
+kubectl get configmap db-credentials -o jsonpath='{.data.port}'
 ```
 
-### Install Ingress-Nginx
-#### AWS
+### Install Ingress-NGINX
 ```sh
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/aws/deploy.yaml
-```
-
-#### Docker Desktop
-If you would like to check kubernetes locally
-
-```sh
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.5.1/deploy/static/provider/cloud/deploy.yaml
 ```
 
 ### Apply K8s declarations to the cluster
@@ -229,3 +280,4 @@ Check in the browser these subdomains:
 - [http://app2.eosadchyi](app2.eosadchyi)
 - [http://app3.eosadchyi](app3.eosadchyi)
 - [http://app4.eosadchyi](app4.eosadchyi)
+

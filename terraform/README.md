@@ -52,4 +52,17 @@ flowchart LR
   ```sh
   terraform apply
   ```
+3. After applying changes you will get hostname and port of the database in outputs
 
+  ```sh
+  Outputs:
+
+  database_hostname = "devops-course-rds.csqt7fieauxh.eu-west-2.rds.amazonaws.com"
+  database_port = 3306
+  ```
+4. Export them to the environment variables
+  ```sh
+   export DATABASE_HOSTNAME=devops-course-rds.csqt7fieauxh.eu-west-2.rds.amazonaws.com
+   export DATABASE_PORT=3306
+  ```
+5. Continue with [Kubernetes Infrastructure](../k8s/README.md)

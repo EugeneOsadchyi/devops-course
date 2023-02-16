@@ -1,5 +1,11 @@
 # DevOps Course
 
+## Table of content
+- [DevOps Course](#devops-course)
+  - [Table of content](#table-of-content)
+  - [Task](#task)
+  - [How to work with the repository](#how-to-work-with-the-repository)
+
 ## Task
 
 Розгорнути програму в кластері k8s, кластер в свою чергу розгорнути в хмарі. Налаштувати CI/CD на базі Jenkins, підготувати інфраструктуру за допомогою terraform.

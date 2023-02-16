@@ -24,7 +24,7 @@ module "database" {
   subnet_ids = module.network.private_subnet_ids
 }
 
-module "eks" {
-  source     = "./modules/eks"
-  subnet_ids = module.network.private_subnet_ids
-}
+# module "eks" {
+#   source     = "./modules/eks"
+#   subnet_ids = module.network.private_subnet_ids
+# }
