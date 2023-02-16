@@ -20,6 +20,7 @@ spec:
       containers:
       - name: nodejs-demoapp
         image: eosadchiy/nodejs-app-nginx:latest
+        imagePullPolicy: Always
         resources:
           limits:
             memory: "256Mi"
@@ -70,6 +71,7 @@ spec:
       containers:
       - name: nodejs-demoapp
         image: eosadchiy/nodejs-app-nginx:latest
+        imagePullPolicy: Always
         resources:
           limits:
             memory: "256Mi"
@@ -120,6 +122,7 @@ spec:
       containers:
       - name: nodejs-demoapp
         image: eosadchiy/nodejs-app-nginx:latest
+        imagePullPolicy: Always
         resources:
           limits:
             memory: "256Mi"
@@ -170,6 +173,7 @@ spec:
       containers:
       - name: nodejs-demoapp
         image: eosadchiy/nodejs-app-nginx:latest
+        imagePullPolicy: Always
         resources:
           limits:
             memory: "256Mi"
