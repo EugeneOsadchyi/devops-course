@@ -29,18 +29,22 @@ pipeline {
 
     stage('Apply Kubernetes files') {
       steps {
+        // doing this because of the lack of the time
+        // Maybe it would be better to store entire secret and config map as files in jenkins credentials
+        sh 'kubectl delete secret db-credentials --ignore-not-found'
         sh '''
-        kubectl get secret db-credentials || \
         kubectl create secret generic db-credentials \
             --from-literal=username=${DATABASE_USERNAME} \
             --from-literal=password=${DATABASE_PASSWORD}
         '''
+
+        sh 'kubectl delete configmap db-credentials --ignore-not-found'
         sh '''
-          kubectl get configmap db-credentials || \
           kubectl create configmap db-credentials \
             --from-literal=hostname=${DATABASE_HOSTNAME} \
             --from-literal=port=${DATABASE_PORT}
         '''
+
         sh 'kubectl apply -f ./k8s'
       }
     }
