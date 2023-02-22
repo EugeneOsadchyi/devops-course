@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "node-demoapp",
+  "description": "node-demoapp Chart values",
+  "type": "object",
+  "required": ["ingress"],
+  "properties": {
+    "ingress": {
+      "type": "object",
+      "required": ["host"],
+      "properties": {
+        "host": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

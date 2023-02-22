@@ -1,0 +1,49 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{.Release.Name}}-{{.Chart.Name}}-ingress
+  labels:
+    app.kubernetes.io/name: {{.Release.Name}}-{{.Chart.Name}}
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: app1.{{.Values.ingress.host}}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{.Release.Name}}-{{.Chart.Name}}-1
+            port:
+              number: 80
+  - host: app2.{{.Values.ingress.host}}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{.Release.Name}}-{{.Chart.Name}}-2
+            port:
+              number: 80
+  - host: app3.{{.Values.ingress.host}}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{.Release.Name}}-{{.Chart.Name}}-3
+            port:
+              number: 80
+  - host: app4.{{.Values.ingress.host}}
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: {{.Release.Name}}-{{.Chart.Name}}-4
+            port:
+              number: 80
