@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "node-demoapp",
+  "description": "node-demoapp Chart values",
+  "type": "object",
+  "required": [
+    "image",
+    "ingress",
+    "replicaCount",
+    "resourceLimits",
+    "service"
+  ],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": ["repository", "tag"],
+      "properties": {
+        "repository": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        }
+      }
+    },
+    "ingress": {
+      "type": "object",
+      "required": ["host"],
+      "properties": {
+        "host": {
+          "type": "string"
+        }
+      }
+    },
+    "replicaCount": {
+      "type": "number"
+    },
+    "resourceLimits": {
+      "type": "object",
+      "required": ["cpu", "memory"],
+      "properties": {
+        "cpu": {
+          "type": "string"
+        },
+        "memory": {
+          "type": "string"
+        }
+      }
+    },
+    "service": {
+      "type": "object",
+      "required": ["type", "port"],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "port": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

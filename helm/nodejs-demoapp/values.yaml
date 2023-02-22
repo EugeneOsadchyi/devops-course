@@ -1,7 +1,9 @@
 image:
   repository: eosadchiy/nodejs-app-nginx
   tag: latest
+
 replicaCount: 4
+
 resourceLimits:
   memory: "256Mi"
   cpu: "150m"
