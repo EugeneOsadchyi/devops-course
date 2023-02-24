@@ -1,9 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-{{ .Chart.Name }}-ingress
+  name: {{ include "nodejs-demoapp.app_name" . }}-ingress
   labels:
-    app.kubernetes.io/name: {{ .Release.Name }}-{{ .Chart.Name }}
+    app.kubernetes.io/name: {{ include "nodejs-demoapp.app_name" . }}
 spec:
   ingressClassName: nginx
   rules:
@@ -14,7 +14,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: {{ .Release.Name }}-{{ .Chart.Name }}-1
+            name: {{ include "nodejs-demoapp.app_name" . }}-1
             port:
               number: 80
   - host: app2.{{ .Values.ingress.host }}
@@ -24,7 +24,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: {{ .Release.Name }}-{{ .Chart.Name }}-2
+            name: {{ include "nodejs-demoapp.app_name" . }}-2
             port:
               number: 80
   - host: app3.{{ .Values.ingress.host }}
@@ -34,7 +34,7 @@ spec:
         path: "/"
         backend:
           service:
-            name: {{ .Release.Name }}-{{ .Chart.Name }}-3
+            name: {{ include "nodejs-demoapp.app_name" . }}-3
             port:
               number: 80
   - host: app4.{{ .Values.ingress.host }}
@@ -44,6 +44,6 @@ spec:
         path: "/"
         backend:
           service:
-            name: {{ .Release.Name }}-{{ .Chart.Name }}-4
+            name: {{ include "nodejs-demoapp.app_name" . }}-4
             port:
               number: 80
