@@ -18,6 +18,7 @@ resourceLimits:
   cpu: "150m"
 
 ingress:
+  enabled: true
   host: eosadchyi
 
 service:
